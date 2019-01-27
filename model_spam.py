@@ -13,7 +13,7 @@ import json
 from sklearn.model_selection import  train_test_split
 
 
-sms_table=pd.read_csv('spam.csv',encoding='latin-1')
+sms_table=pd.read_csv('dataset/spam.csv',encoding='latin-1')
 
 sms_table.head()
 
@@ -59,7 +59,7 @@ test_X.head()
 test_Y.head()
 
 #preprocessing of messages
-def proc(sms, lower_case = True, stem = True, stop_words = True, gram = 2):
+def processing(sms, lower_case = True, stem = True, stop_words = True, gram = 2):
     sms= sms.lower()
     words = word_tokenize(sms)
     stopword = stopwords.words('english')
@@ -108,16 +108,16 @@ print(confusion_matrix(test_Y,predictions))
 
 print(classification_report(predictions,test_Y))
 
-modelfname = 'spam_ham.pkl'
+modelfname = 'model/spam_ham.pkl'
 pickle.dump(model ,open(modelfname, 'wb'))
 
 loaded_model = pickle.load(open(modelfname, 'rb'))
 result = loaded_model.score(test_X,test_Y)
 print(result)
 
-model.predict(['Free entry in 2 a wkly comp to win FA Cup finally '])
+model.predict(['Free entry in clg CRT match for 2 rs a dy. '])
 
-loaded_model.predict(['Free entry in 2 a wkly comp to win FA Cup finally '])
+loaded_model.predict(['Free entry in clg CRT match for 2 rs a dy. '])
 
 model.predict(["Hi how was your day ?"])
 
